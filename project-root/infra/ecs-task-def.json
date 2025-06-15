@@ -1,0 +1,10 @@
+[
+    {
+      "name": "backend",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<region>.amazonaws.com/video-backend:latest",
+      "portMappings": [{"containerPort":5000,"hostPort":5000}],
+      "environment": [
+        {"name":"S3_BUCKET_NAME","value":"${S3_BUCKET_NAME}"}
+      ]
+    }
+  ]
