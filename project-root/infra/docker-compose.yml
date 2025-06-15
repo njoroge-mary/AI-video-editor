@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:6
+    ports: ['6379:6379']
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    depends_on: ['redis']
+    ports: ['5000:5000']
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports: ['3000:3000']
