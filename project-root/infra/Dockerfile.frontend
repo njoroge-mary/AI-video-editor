@@ -1,0 +1,8 @@
+FROM node:18-alpine
+WORKDIR /app
+COPY web-frontend/package.json ./
+RUN npm install
+COPY web-frontend/ ./web-frontend
+WORKDIR /app/web-frontend
+RUN npm run build
+CMD ["npx", "serve", "-s", "build"]
